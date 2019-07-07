@@ -24,9 +24,24 @@ This library is heavily dependent on glfw, which means even you don't need
 
 There is a complete example located in `example/test.cpp` if you need.
 
-#### Firstly, implement a class as a window with all the callbacks you need
+This library is organized as a tree structure, with frames stand for
+ all the non-leaf nodes and user-defined widget for all the leaf nodes.
 
-This library works in C++, so it is much easier to implement a window than in C.
+So in order to make it work, you need to:
+- Implement a widget inheriting `fwLeafWidget`, with all the callbacks you need
+    and a display function
+- Setup a glfw window
+- Initialize Main Frame Window from glfwWindow by calling `fwInitFrameWindow`
+- Initialize each element inside by calling `fwInitWidgetAs*`, making sure
+    every node is initialized
+- Run glfw-style mainloop, and call `fwUpdate` each time window repaint is
+    needed
+
+#### Firstly, Implement a widget
+
+This library works in C++, so it is much easier to implement a widget than in C.
+
+By implementing a class as a fwLeafWidget
 
 A simple window class is like this:
 
@@ -71,7 +86,7 @@ fwFrame* mainFrame = fwInitFrameWindow(window, 1, 3, { 192, 192, 32 }, { 64 });
 
 #### Fourthly, initialize each element inside the Main Frame
 
-By calling fwInitWidgetAsLeaf, you can init each element as either a leaf
+By calling fwInitWidgetAs*, you can init each element as either a leaf
  or a subframe.
 
 > Attaintion: As by now I have no idea how to handle out-of-bound element
@@ -89,7 +104,7 @@ fwInitWidgetAsLeaf(subFrame, 0, 0, &block[2]);
 fwInitWidgetAsLeaf(subFrame, 1, 0, &block[3]);
  ```
 
-#### Finally, go into glfw main loop
+#### Finally, run glfw main loop
 
 I implemented a function fwUpdate, so the mainloop is handed over to the user,
 rather than the library.
