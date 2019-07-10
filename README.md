@@ -48,7 +48,7 @@ A simple window class is like this:
 ```cpp
 class Rect : public public fwLeafWidget {
 public:
-    virtual void display() {
+    virtual void onRepaint() {
         glColor3f(1.0f, 0.0f, 0.0f);
         glRecti(0, 0, 64, 64);
     }
@@ -81,7 +81,7 @@ Here our MainFrame is a 1x3 form. The width of each column is 192px, 192px
  and 32px respectively, and the height is 64px. 
 
 ```cpp
-fwFrame* mainFrame = fwInitFrameWindow(window, 1, 3, { 192, 192, 32 }, { 64 });
+fwMainFrame* mainFrame = fwInitFrameWindow(window, 1, 3, { 192, 192, 32 }, { 64 });
 ```
 
 #### Fourthly, initialize each element inside the Main Frame
@@ -96,12 +96,12 @@ Here we initialized the left two elements as leaves, and the rightside one as
  a 2x1 subform containing two leaves.
 
  ```cpp
-fwInitWidgetAsLeaf(mainFrame, 0, 0, &block[0]);
-fwInitWidgetAsLeaf(mainFrame, 0, 1, &block[1]);
+fwSetWidgetAsLeaf(mainFrame, 0, 0, &block[0]);
+fwSetWidgetAsLeaf(mainFrame, 0, 1, &block[1]);
 fwFrame* subFrame = fwInitWidgetAsFrame(mainFrame, 0, 2, 2, 1,
                                             { 32 }, { 32, 32 });
-fwInitWidgetAsLeaf(subFrame, 0, 0, &block[2]);
-fwInitWidgetAsLeaf(subFrame, 1, 0, &block[3]);
+fwSetWidgetAsLeaf(subFrame, 0, 0, &block[2]);
+fwSetWidgetAsLeaf(subFrame, 1, 0, &block[3]);
  ```
 
 #### Finally, run glfw main loop

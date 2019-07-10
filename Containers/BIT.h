@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_BIT
+#define H_BIT
 #include <initializer_list>
 #include <cstring>
 
@@ -56,3 +57,4 @@ public:
 	~BIT() { delete data, delete prefixSum; }
 };
 
+#endif // H_BIT

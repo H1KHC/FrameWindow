@@ -4,19 +4,27 @@
 #include <GL/gl.h>
 
 #include "fwFrame.h"
+#include "fwMainFrame.h"
 
-void fwFrame::display()
+void fwFrame::onRepaint()
 {
-	for (auto& Column : elements) {
+	for (auto& Column : m_elements) {
 		for (fwWidget* element : Column) {
 			bool isLeaf = (element->type() == WidgetType::LeafWidget);
 			
 			if (isLeaf) {
 				glPushMatrix();
-				glTranslatef((GLfloat)element->pos[0], (GLfloat)element->pos[1], 0);
+
+				// Coordinate system transform
+				//   from window system(originated from up-left)
+				//   to opengl system(origionated from bottom-left)
+				glTranslatef((GLfloat)element->getWidgetXPos(),
+					getOwner()->getWindowHeight() -
+						(GLfloat)element->getWidgetYPos() -
+						element->getWidgetHeight(), 0);
 			}
 
-			element->display();
+			element->onRepaint();
 
 			if (isLeaf) {
 				glPopMatrix();

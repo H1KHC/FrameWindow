@@ -4,6 +4,7 @@
 .vscode/
 bin/
 lib/
+html/
 
 # Prerequisites
 *.d
