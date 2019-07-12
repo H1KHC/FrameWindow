@@ -147,6 +147,23 @@ public:
 		return WidgetType::Frame;
 	}
 
+	/**
+	 * @brief Construct a new fwFrame object, only for internal use
+	 *
+	 * @param row The number of the row count
+	 * @param column The number of the column count
+	 * @param widths The number of width, in pixel, of each row
+	 * @param heights The number of height, in pixel, of each row
+	 */
+	fwFrame(bool isMainWidget, int row, int column,
+		const std::initializer_list<int>& widths,
+		const std::initializer_list<int>& heights) :
+		fwWidget(isMainWidget),
+		m_cols(column), m_rows(row), m_columnWidth(column, widths), m_rowHeight(row, heights),
+		m_elements(row, std::vector<fwWidget*>(column, nullptr))
+	{
+	};
+
 public:
 	/**
 	 * @brief Construct a new fwFrame object
@@ -159,8 +176,7 @@ public:
 	fwFrame(int row, int column,
 		const std::initializer_list<int>& widths,
 		const std::initializer_list<int>& heights) :
-		m_cols(column), m_rows(row), m_columnWidth(column, widths), m_rowHeight(row, heights),
-		m_elements(row, std::vector<fwWidget*>(column, nullptr))
+		fwFrame(false, row, column, widths, heights)
 	{
 	};
 

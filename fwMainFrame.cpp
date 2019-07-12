@@ -6,14 +6,17 @@ fwMainFrame::fwMainFrame(
 	GLFWwindow* window, int row, int column,
 	const std::initializer_list<int>& widths,
 	const std::initializer_list<int>& heights) :
-	fwFrame(row, column, widths, heights),
+	fwFrame(true, row, column, widths, heights),
 	m_windowPos{ 0, 0 }, m_cursor{ 0, 0 },
 	m_elementUnderCursor(nullptr), m_elementFocused(nullptr),
 	m_glfwWindow(window)
 {
+	void fwInitCallbacks(GLFWwindow* window);
 	glfwGetWindowPos(window, &m_windowPos[0], &m_windowPos[1]);
 	glfwGetWindowSize(window, &m_windowSize[0], &m_windowSize[1]);
 	setWidgetWidth(m_windowSize[0]), setWidgetHeight(m_windowSize[1]);
+	glfwSetWindowUserPointer(window, this);
+	fwInitCallbacks(m_glfwWindow);
 }
 
 void fwMainFrame::onRepaint()

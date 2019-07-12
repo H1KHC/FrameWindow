@@ -41,7 +41,7 @@ So in order to make it work, you need to:
 
 This library works in C++, so it is much easier to implement a widget than in C.
 
-By implementing a class as a fwLeafWidget
+By implementing a class as a window class, you need to inherit it from fwLeafWidget
 
 A simple window class is like this:
 
@@ -81,7 +81,7 @@ Here our MainFrame is a 1x3 form. The width of each column is 192px, 192px
  and 32px respectively, and the height is 64px. 
 
 ```cpp
-fwMainFrame* mainFrame = fwInitFrameWindow(window, 1, 3, { 192, 192, 32 }, { 64 });
+fwMainFrame* mainFrame = new FrameWindow(window, 1, 3, { 192, 192, 32 }, { 64 });
 ```
 
 #### Fourthly, initialize each element inside the Main Frame
@@ -95,13 +95,13 @@ By calling fwInitWidgetAs*, you can init each element as either a leaf
 Here we initialized the left two elements as leaves, and the rightside one as
  a 2x1 subform containing two leaves.
 
- ```cpp
-fwSetWidgetAsLeaf(mainFrame, 0, 0, &block[0]);
-fwSetWidgetAsLeaf(mainFrame, 0, 1, &block[1]);
+```cpp
+fwSetWidgetAs(mainFrame, 0, 0, &block[0]);
+fwSetWidgetAs(mainFrame, 0, 1, &block[1]);
 fwFrame* subFrame = fwInitWidgetAsFrame(mainFrame, 0, 2, 2, 1,
                                             { 32 }, { 32, 32 });
-fwSetWidgetAsLeaf(subFrame, 0, 0, &block[2]);
-fwSetWidgetAsLeaf(subFrame, 1, 0, &block[3]);
+fwSetWidgetAs(subFrame, 0, 0, &block[2]);
+fwSetWidgetAs(subFrame, 1, 0, &block[3]);
  ```
 
 #### Finally, run glfw main loop

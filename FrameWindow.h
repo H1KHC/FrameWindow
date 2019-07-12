@@ -47,9 +47,9 @@ fwFrame* fwInitWidgetAsFrame(fwFrame* parent, int row, int column,
  * @param leaf The pointer to the leaf widget to be placed
  * @return fwWidget* The pointer to the original widget at this place
  */
-fwWidget* fwSetWidgetAsLeaf(fwFrame* parent,
+fwWidget* fwSetWidgetAs(fwFrame* parent,
 							 int row, int column,
-							 fwLeafWidget* leaf);
+							 fwWidget* widget);
 
 void fwUpdate(fwMainFrame* mainFrame);
 

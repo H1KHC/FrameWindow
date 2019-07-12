@@ -10,10 +10,10 @@ fwFrame* fwInitWidgetAsFrame(fwFrame* parent, int row, int column, int rowCount,
 	return newFrame;
 }
 
-fwWidget* fwSetWidgetAsLeaf(fwFrame* parent, int row, int column, fwLeafWidget* leaf)
+fwWidget* fwSetWidgetAs(fwFrame* parent, int row, int column, fwWidget* widget)
 {
 	fwWidget* oldElement = parent->getElement(row, column);
-	parent->replaceElement(row, column, leaf);
+	parent->replaceElement(row, column, widget);
 	return oldElement;
 }
 

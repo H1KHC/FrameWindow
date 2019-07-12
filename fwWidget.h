@@ -25,6 +25,7 @@ public:
 	 */
 	enum class WidgetType
 	{
+		InvalidWidget,
 		LeafWidget,
 		Frame,
 		MainFrame
@@ -88,9 +89,15 @@ protected:
 	const fwMainFrame* getOwner() const { return m_owner; }
 
 	/**
-	 * @brief Construct a new invalid fwWidget object
+	 * @brief Construct a new fwWidget object
+	 *
+	 * @param isMainFrame whether this widget is fwMainWindow,
+	 *  used to determine whether m_owner is itself or a nullptr
 	 */
-	fwWidget() : m_parent(nullptr), m_owner(nullptr), m_depth(-1), m_pos{ -1, -1 }, m_size{ -1, -1 } {};
+	fwWidget(bool isMainFrame = false) :
+				 m_parent(nullptr),
+				 m_owner(isMainFrame ? (fwMainFrame*)this : nullptr),
+				 m_depth(-1), m_pos{ -1, -1 }, m_size{ -1, -1 } {};
 
 	/**
 	 * @brief default destructor
@@ -140,7 +147,9 @@ public:
 	/**
 	 * @brief Returns the type of this widget
 	 */
-	virtual WidgetType type() const = 0;
+	virtual WidgetType type() const {
+		return WidgetType::InvalidWidget;
+	}
 
 	/**
 	 * @brief Test if point(x, y) is inside this widget

@@ -165,6 +165,14 @@ public:
 	void onRepaint();
 
 	/**
+	 * @brief Register callbacks of glfwWindow, called only in constructor,
+	 *   after glfwWindowUserPointer is set to this
+	 * 
+	 * @param window Pointer to the glfwWindow
+	 */
+	friend void fwInitCallbacks(GLFWwindow* window);
+
+	/**
 	 * @brief Construct a new fwMain Frame object
 	 * 
 	 * @param x The x-coordinate, in screen coordinates, of the upper-left
